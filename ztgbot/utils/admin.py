@@ -1,4 +1,5 @@
 import log
+from config import SUDO
 
 from pyrogram import filters
 
@@ -8,11 +9,15 @@ def is_admin(bot, chat_id: int, user_id: int):
         member = bot.get_chat_member(chat_id, user_id)
 
         if member:
-            if member.status in ['creator', 'administrator']:
+            if member.status in ('creator', 'administrator') or user_id in SUDO:
                 return True
         
             else:
                 return False
+            
+        else:
+           log.log("ERROR", f"Couldn't determine admin status\nError:{e}")
+           return False 
             
     except Exception as e:
 
