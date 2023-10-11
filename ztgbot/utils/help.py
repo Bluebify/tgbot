@@ -48,7 +48,7 @@ def gen_help_keyboard(plugin_list, col=3):
 	return x
 
 def list_all_modules() -> list:
-    modules_directory = "plugins"
+    modules_directory = "ztgbot/plugins"
 
     all_modules = []
     for module_name in os.listdir(modules_directory):
