@@ -60,14 +60,9 @@ def callback_query(bot, CallbackQuery: CallbackQuery):
     for i in LOADED_MODULES:
         help_query.append(f"help_{i}")
 
-    menu_button = InlineKeyboardMarkup(InlineKeyboardButton("Back", "menu"))
-
     if query.data in help_query:
         query(MOD_HELP[query.data.split("help_")[1]][0])
         query.edit_message_reply_markup(menu_button)
-
-    if query.data == "menu":
-        query.edit_message_text(HELP_TEXT, reply_markup=HELP_MARKUP)
 
 START_KEYBOARD = [[
     InlineKeyboardButton("Tutorial", "_tutorial")
