@@ -1,25 +1,26 @@
 import log
 from config import SUDO
 
-from pyrogram import filters
+from pyrogram import filters, Client
 
-def is_admin(bot, chat_id: int, user_id: int):
+def is_admin(bot: Client, chat_id: int, user_id: int):
+
+    if user_id in SUDO:
+        return True
     
     try:
-        member = bot.get_chat_member(chat_id, user_id)
-
-        if member:
-            if member.status in ('creator', 'administrator') or user_id in SUDO:
-                return True
+        chat_member = bot.get_chat_member(chat_id, user_id)
         
-            else:
-                return False
-            
+        if chat_member.status == "administrator" or chat_member.status == "creator":
+            bot.send_message(chat_id, response_message)
+            response_message = "You are an admin!"
+            return True
         else:
-           log.log("ERROR", f"Couldn't determine admin status\nError:{e}")
-           return False 
-            
-    except Exception as e:
+            response_message = "You are not an admin."
+            bot.send_message(chat_id, response_message)
+            return False
 
-        log.log("ERROR", f"Couldn't determine admin status\nError:{e}")
+    except Exception as e:
+        response_message = f"Error: {str(e)}"
+        bot.send_message(chat_id, response_message)
         return False
