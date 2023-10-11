@@ -17,7 +17,7 @@ def mute(bot, message):
         message.reply_text("You have to be an admin to mute someone")
         return False
     
-    if not is_admin(bot, chat_id, bot.id):
+    if not is_admin(bot, chat_id, bot.get_me().id):
         message.reply_text("If I am not an admin, how can I mute someone else")
         return False
 
