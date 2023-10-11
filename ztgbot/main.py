@@ -53,7 +53,7 @@ These are all the features that I support:
 """
 
 @bot.on_callback_query()
-def callback_query(bot, CallbackQuery: CallbackQuery):
+def callback_query(bot, CallbackQuery):
     query = CallbackQuery
 
     help_query = []
@@ -61,8 +61,7 @@ def callback_query(bot, CallbackQuery: CallbackQuery):
         help_query.append(f"help_{i}")
 
     if query.data in help_query:
-        query(MOD_HELP[query.data.split("help_")[1]][0])
-        query.edit_message_reply_markup(menu_button)
+        query.edit_message_text(MOD_HELP[query.data.split("help_")[1]][0])
 
 START_KEYBOARD = [[
     InlineKeyboardButton("Tutorial", "_tutorial")
